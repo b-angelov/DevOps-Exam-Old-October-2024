@@ -2,7 +2,7 @@ name: Exam App workflow
 
 on:
   push:
-    branches: [ "main", "staging" ]
+    branches: [ "develop", "staging" ]
 
 jobs:
   build:

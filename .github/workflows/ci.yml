@@ -26,3 +26,5 @@ jobs:
     - name: Integration tests
       if: github.ref == 'refs/heads/staging'
       run: dotnet test Homes.IntegrationTests --no-build --verbosity normal
+
+# some

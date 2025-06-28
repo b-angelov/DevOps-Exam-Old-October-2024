@@ -1,0 +1,28 @@
+name: Exam App workflow
+
+on:
+  push:
+    branches: [ "main", "staging" ]
+
+jobs:
+  build:
+    name: Build And Test
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Unit Test
+      if: github.ref == 'refs/heads/develop'
+      run: dotnet test Homies.UnitTests --no-build --verbosity normal
+    - name: Integration tests
+      if: github.ref == 'refs/heads/staging'
+      run: dotnet test Homies.IntegrationTests --no-build --verbosity normal
